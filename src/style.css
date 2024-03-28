@@ -1,0 +1,17 @@
+body {
+    margin: 0;
+}
+.popper-list{
+    border: none !important;
+}
+.el-popper.is-light .el-popper__arrow:before {
+    background: #333333;
+    border: none !important;
+}
+.el-carousel__indicators {
+    display: none;
+}
+
+.el-button  {
+    background: #fc2d60;
+}
