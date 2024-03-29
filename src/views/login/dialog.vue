@@ -50,13 +50,13 @@
         Account Security
       </div>
       <el-input
-        v-model="input1"
+        v-model="input3"
         style="width: 350px; margin: 20px 0; background: #fff; height: 50px"
         size="large"
         placeholder="Email address"
       />
       <el-input
-        v-model="input2"
+        v-model="input4"
         style="width: 350px; height: 50px"
         size="large"
         placeholder="Password"
