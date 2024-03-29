@@ -1,7 +1,5 @@
 # vue-demo
 
-一个布袋游戏文化展示系统
-
 
 ## Project Setup
 

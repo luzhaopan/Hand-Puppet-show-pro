@@ -1,6 +1,5 @@
 <template>
   <div class="page-header">
-    <!-- <NavBar /> -->
     <el-carousel trigger="click" height="550px">
       <el-carousel-item v-for="item in list" :key="item">
         <el-image class="img" :src="item" fit="fill" />
@@ -78,22 +77,57 @@
     </div>
     <el-divider />
   </div>
+  <div
+    style="
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #040a10;
+    "
+    :class="{ isShow: isShow }"
+    @click="handelPause"
+  >
+    <video
+      style="width: 100%; height: 100%; cursor: pointer"
+      ref="videoPlayer"
+      @ended="onVideoEnded"
+      :autoplay="true"
+      :loop="true"
+    >
+      <source :src="gif" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+  </div>
 </template>
 
 <script setup>
 import { ref } from "vue"
 import { useRouter } from "vue-router"
 import { Right, Search, CaretBottom } from "@element-plus/icons-vue"
-// import NavBar from "@/components/NavBar/index.vue"
 import url1 from "@//assets/homebg1.jpg"
 import url2 from "@/assets/homebg2.jpg"
 import url3 from "@/assets/homebg3.jpg"
+import gif from "@/assets/gif.mp4"
 
 const { push } = useRouter()
 
 const list = [url1, url2, url3]
 const input1 = ref("")
 const input2 = ref("")
+
+const isShow = ref(false)
+const videoPlayer = ref(null)
+
+const onVideoEnded = () => {
+  videoPlayer.value.play()
+}
+
+const handelPause = () => {
+  videoPlayer.value.pause()
+  isShow.value = true
+}
 
 const goTrational = () => {
   push("/traditional-games")
@@ -190,5 +224,8 @@ const goShop = () => {
   font-size: 14px;
   text-align: center;
   margin: 10px 0 20px;
+}
+.isShow {
+  display: none;
 }
 </style>

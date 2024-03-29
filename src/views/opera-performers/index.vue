@@ -258,7 +258,7 @@ import ins from "@/assets/in.png"
 }
 .inheritors {
   width: 100%;
-  height: 400px;
+  height: 600px;
   background-image: url("@/assets/ac4.png");
   background-repeat: no-repeat;
   background-position: center 0.1px;
@@ -271,7 +271,7 @@ import ins from "@/assets/in.png"
   align-items: center;
 }
 .actor {
-  background-color: #333333;
+  background-color: #0f0f0f;
   width: 100%;
   height: 760px;
   position: relative;

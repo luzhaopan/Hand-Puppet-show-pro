@@ -13,17 +13,26 @@
         status-icon
       >
         <el-form-item label="" prop="username">
-          <el-icon color="#889aa4" size="20" class="item"><UserFilled /></el-icon>
+          <el-icon color="#889aa4" size="20" class="item"
+            ><UserFilled
+          /></el-icon>
           <el-input v-model="ruleForm.username" />
         </el-form-item>
         <el-form-item label="" prop="password">
           <el-icon color="#889aa4" size="20" class="item"><Lock /></el-icon>
-          <el-input type="password" v-model.trim="ruleForm.password" autocomplete="off"></el-input>
+          <el-input
+            type="password"
+            v-model.trim="ruleForm.password"
+            autocomplete="off"
+          ></el-input>
         </el-form-item>
+        <div class="regis" @click="dialogVisible.show = true">
+          register an account
+        </div>
         <el-form-item>
           <el-button
             :loading="loading"
-            style="width: 100%; margin: 40px 0"
+            style="width: 100%"
             type="danger"
             @click="submitForm(ruleFormRef)"
           >
@@ -33,40 +42,48 @@
         <div class="line"></div>
       </el-form>
     </div>
+    <Dialog :visible="dialogVisible" />
     <Review />
     <Footer />
   </div>
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
-import router from '@/router'
-import { setToken } from '@/utils/auth'
+import { ref, reactive } from "vue"
+import { ElMessage } from "element-plus"
+import router from "@/router"
+import { setToken } from "@/utils/auth"
 
-import Review from '@/components/Review/index.vue'
-import Footer from '@/components/Footer/index.vue'
+import Dialog from "./dialog.vue"
+import Review from "@/components/Review/index.vue"
+import Footer from "@/components/Footer/index.vue"
 
+const dialogVisible = reactive({
+  show: false
+})
 const loading = ref(false)
 
 const ruleFormRef = ref()
 const ruleForm = reactive({
-  username: 'admin',
-  password: 'admin'
+  username: "admin",
+  password: "123456"
 })
+
+const emue = ["admin123456", "test123456"]
 
 const rules = reactive({
   username: [
     {
       required: true,
-      message: 'Please input userName',
-      trigger: 'blur'
+      message: "Please input userName",
+      trigger: "blur"
     }
   ],
   password: [
     {
       required: true,
-      message: 'Please select passWord',
-      trigger: 'change'
+      message: "Please select passWord",
+      trigger: "change"
     }
   ]
 })
@@ -78,11 +95,16 @@ const submitForm = async (formEl) => {
       loading.value = true
       setTimeout(() => {
         loading.value = false
-        setToken('admin')
-        router.push('/')
+        const str = ruleForm.username + ruleForm.password
+        if (emue.includes(str)) {
+          setToken("admin")
+          router.push("/")
+        } else {
+          ElMessage.error("用户名或密码错误！")
+        }
       }, 50)
     } else {
-      console.log('error submit!', fields)
+      console.log("error submit!", fields)
     }
   })
 }
@@ -126,6 +148,15 @@ const submitForm = async (formEl) => {
 }
 .line {
   border-top: 1px solid #4e4d4d;
+}
+.regis {
+  color: #999999;
+  text-align: center;
+  cursor: pointer;
+  margin: 50px 0 20px;
+}
+.regis:hover {
+  color: #fff;
 }
 ::v-deep(.el-input) {
   --el-input-border-color: #68696b;
