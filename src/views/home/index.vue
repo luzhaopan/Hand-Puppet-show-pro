@@ -86,12 +86,13 @@
       height: 100vh;
       background: #040a10;
     "
-    :class="{ isShow: isShow }"
+    v-if="isShow"
     @click="handelPause"
   >
     <video
       style="width: 100%; height: 100%; cursor: pointer"
       ref="videoPlayer"
+      muted
       @ended="onVideoEnded"
       :autoplay="true"
       :loop="true"
@@ -117,16 +118,18 @@ const list = [url1, url2, url3]
 const input1 = ref("")
 const input2 = ref("")
 
-const isShow = ref(false)
+const isShow = ref(true)
 const videoPlayer = ref(null)
 
 const onVideoEnded = () => {
-  videoPlayer.value.play()
+  if (videoPlayer.value) {
+    videoPlayer.value.play()
+  }
 }
 
 const handelPause = () => {
   videoPlayer.value.pause()
-  isShow.value = true
+  isShow.value = false
 }
 
 const goTrational = () => {
@@ -224,8 +227,5 @@ const goShop = () => {
   font-size: 14px;
   text-align: center;
   margin: 10px 0 20px;
-}
-.isShow {
-  display: none;
 }
 </style>
